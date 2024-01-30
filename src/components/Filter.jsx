@@ -1,27 +1,23 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchContacts } from '../redux/contactsSlice';
-import ContactForm from './ContactForm';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../redux/contactsSlice';
 
-const App = () => {
+const Filter = () => {
   const dispatch = useDispatch();
+  const filter = useSelector((state) => state.contacts.filter);
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  const filterChangeHandler = (value) => {
+    dispatch(setFilter(value));
+  };
 
   return (
-    <div>
-      <h1>Phonebook</h1>
-      <ContactForm />
-
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactList />
-    </div>
+    <input
+      type="text"
+      value={filter}
+      onChange={(e) => filterChangeHandler(e.target.value)}
+      placeholder="Search contacts"
+    />
   );
 };
 
-export default App;
+export default Filter;
