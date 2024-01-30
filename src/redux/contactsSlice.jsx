@@ -1,33 +1,6 @@
-import { createSlice, createAsyncThunk, createAction, createSelector } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export const fetchContacts = createAsyncThunk('fetchAll', async () => {
-  const response = await axios.get('https://65b4f3d841db5efd28671d26.mockapi.io/contacts/contacts');
-  return response.data;
-});
-
-export const addContact = createAsyncThunk('addContact', async (contact) => {
-  const response = await axios.post('https://65b4f3d841db5efd28671d26.mockapi.io/contacts/contacts', contact);
-  return response.data;
-});
-
-export const deleteContact = createAsyncThunk('deleteContact', async (id) => {
-  await axios.delete(`https://65b4f3d841db5efd28671d26.mockapi.io/contacts/contacts${id}`);
-  return id;
-});
-
-export const setFilter = createAction('setFilter');
-
-export const selectContacts = (state) => state.items;
-export const selectFilter = (state) => state.filter;
-export const selectFilteredContacts = createSelector(
-  [selectContacts, selectFilter],
-  (contacts, filter) => {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }
-);
+// contactsSlice.js
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './contactsApi';
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -65,4 +38,6 @@ const contactsSlice = createSlice({
   },
 });
 
+export const { setFilter } = contactsSlice.actions;
 export default contactsSlice.reducer;
+
