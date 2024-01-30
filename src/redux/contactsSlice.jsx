@@ -2,17 +2,17 @@ import { createSlice, createAsyncThunk, createAction, createSelector } from '@re
 import axios from 'axios';
 
 export const fetchContacts = createAsyncThunk('fetchAll', async () => {
-  const response = await axios.get('https://65b4f3d841db5efd28671d26.mockapi.io/contacts');
+  const response = await axios.get('https://65b4f3d841db5efd28671d26.mockapi.io/contacts/contacts');
   return response.data;
 });
 
 export const addContact = createAsyncThunk('addContact', async (contact) => {
-  const response = await axios.post('https://65b4f3d841db5efd28671d26.mockapi.io/contacts', contact);
+  const response = await axios.post('https://65b4f3d841db5efd28671d26.mockapi.io/contacts/contacts', contact);
   return response.data;
 });
 
 export const deleteContact = createAsyncThunk('deleteContact', async (id) => {
-  await axios.delete(`https://65b4f3d841db5efd28671d26.mockapi.io/contacts/${id}`);
+  await axios.delete(`https://65b4f3d841db5efd28671d26.mockapi.io/contacts/contacts${id}`);
   return id;
 });
 
